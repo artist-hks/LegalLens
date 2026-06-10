@@ -1,95 +1,275 @@
-# ⚖️ LegalLens — AI Legal Document Analyzer for Indian SMEs
+<div align="center">
 
-**LegalLens** is a fully client-side, AI-style legal document risk analyzer built for Indian small & medium businesses. Upload a contract (PDF / DOCX / TXT) and instantly get risk-clause detection, a 0–100 risk score, plain-language summaries in **English & हिंदी**, and an exportable PDF report. **Zero backend, zero API keys, no signup.**
+<img src="https://raw.githubusercontent.com/artist-hks/LegalLens/main/favicon.svg" alt="LegalLens Logo" width="80" height="80" />
+
+# ⚖️ LegalLens
+
+### AI-Powered Legal Document Risk Analyzer for Indian SMEs
+
+**Instant risk detection · Plain-language summaries · English & हिंदी · Zero backend · No signup**
+
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-legal--lens--hks.vercel.app-0F2342?style=for-the-badge)](https://legal-lens-hks.vercel.app)
+[![License: MIT](https://img.shields.io/badge/License-MIT-gold?style=for-the-badge)](LICENSE)
+[![Built With React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org)
+[![No Build Required](https://img.shields.io/badge/Build_Free-✓-brightgreen?style=for-the-badge)](#️-architecture)
+
+</div>
 
 ---
 
-## 🚀 Currently Completed Features
+## 📖 Overview
 
-| Feature | Status |
+**LegalLens** is a fully client-side legal document analyzer designed specifically for Indian small and medium enterprises (SMEs). Upload any contract — rental agreements, vendor contracts, service agreements — and instantly receive:
+
+- 🔍 **Clause-by-clause risk detection** across 11 predefined legal risk rules
+- 📊 **A 0–100 risk score** with LOW / MEDIUM / HIGH bands
+- 🌐 **Plain-language summaries in English and हिंदी**
+- 📄 **Exportable PDF reports** with branded formatting
+- 🔒 **Complete privacy** — your documents never leave the browser
+
+> 🇮🇳 Built for India's ~63 million SMEs who navigate complex legal documents without in-house legal counsel.
+
+---
+
+## ✨ Features
+
+### 📤 Document Upload & Parsing
+| Feature | Details |
 |---|---|
-| Landing page with hero, feature pills & SME stats | ✅ |
-| Drag & drop upload zone (PDF / DOCX / TXT, 10MB limit) | ✅ |
-| **"Try with Demo Agreement"** — instant demo with a realistic Jaipur commercial rental agreement | ✅ |
-| PDF parsing via **pdf.js 3.11.174** (CDN worker), DOCX via **mammoth**, TXT via FileReader | ✅ |
-| **Clause detection engine** — 11 rules (6 high / 3 medium / 2 info), keyword-based, case-insensitive, first-match-per-rule with ±150-char context snippets | ✅ |
-| **Risk scoring** — `high×28 + medium×12 + info×3`, clamped to 100, with LOW/MEDIUM/HIGH bands | ✅ |
-| Animated loading overlay (2.5 s) with spinning scale icon, progress bar & 4 cycling status messages | ✅ |
-| **Custom SVG semicircle risk gauge** with animated arc + gold needle | ✅ |
-| **Risk breakdown donut** (pure SVG, animated) with issue counts | ✅ |
-| Sidebar: document info, re-analyze, quick stats (parties / value / jurisdiction) | ✅ |
-| **Clause Analysis tab** — severity-sorted cards, left border accent, matched-keyword highlight, expandable "What this means / What to do" + Hindi explanations, staggered entry animation | ✅ |
-| **Plain Summary tab** — English ⇄ हिंदी toggle, highlight cards, Top 3 risks list | ✅ |
-| **Full Text tab** — monospace view with yellow (high) / orange (medium) sentence highlights, char/word count | ✅ |
-| **Export PDF Report** via jsPDF — branded header, score bar, all clauses with explanations & recommendations, disclaimer footer | ✅ |
-| Error states: empty file, unsupported format, parse error, >10MB, "no risks found" green state | ✅ |
-| Responsive layout (sidebar stacks on mobile), legal disclaimer footer on every screen | ✅ |
+| **Supported formats** | PDF, DOCX, TXT |
+| **Max file size** | 10 MB |
+| **Upload method** | Drag & drop or click to browse |
+| **PDF parsing** | pdf.js 3.11.174 (text-layer extraction) |
+| **DOCX parsing** | Mammoth.js |
+| **TXT parsing** | Native FileReader API |
+| **Demo mode** | One-click sample Jaipur commercial rental agreement |
 
-## 🔗 Functional Entry Points
+### 🔍 Clause Detection Engine
+The engine scans documents against **11 predefined risk rules** (6 High · 3 Medium · 2 Info), extracting ±150-character context snippets per match:
 
-| Path | Description |
-|---|---|
-| `index.html` | Single-page app — the only entry point. All flows (landing → loading → analysis) are client-side state transitions. |
+| Severity | Count | Score Weight |
+|---|---|---|
+| 🔴 High Risk | 6 rules | ×28 per match |
+| 🟡 Medium Risk | 3 rules | ×12 per match |
+| 🟢 Info | 2 rules | ×3 per match |
 
-No URL parameters or backend endpoints — everything runs in the browser.
+Risk score formula: `(high × 28) + (medium × 12) + (info × 3)`, clamped to **100**.
 
-## 🏗️ Architecture Note (Build-Free React)
+### 📊 Visual Analytics
+- **Animated semicircle risk gauge** — custom SVG with a gold needle and smooth animation
+- **Risk breakdown donut chart** — pure SVG, animated, showing issue counts per severity
+- **Staggered clause cards** — sorted by severity with colored left-border accents and keyword highlights
 
-The original spec targeted Vite + npm. Because this project is deployed as a **static website**, the identical app is implemented **build-free**:
+### 🌐 Bilingual Summaries
+Every detected clause includes:
+- Plain-English explanation of what the clause means
+- Actionable recommendation ("What to do")
+- Full **हिंदी translation** of both, toggled instantly
 
-- **React 18 (UMD)** + **Babel Standalone** for JSX — no `npm install` needed
-- **Tailwind CSS (CDN)** with the spec's custom theme (navy/risk colors, Inter + Playfair Display)
-- **Framer Motion replaced** by equivalent CSS keyframe animations (fade-up, stagger `0.08s`, expand/collapse, gauge/donut transitions)
-- **Recharts replaced** by a hand-rolled pure-SVG donut (same visual result, fewer dependency risks)
-- **lucide-react replaced** by inline SVG icons using lucide's path data
-- pdf.js, mammoth and jsPDF load from CDN exactly as specified
+### 📄 PDF Export
+Generates a branded, jsPDF-powered report containing:
+- Header with LegalLens branding and document name
+- Visual risk score bar
+- All detected clauses with full explanations and recommendations
+- Legal disclaimer footer
 
-### File Structure
+---
+
+## 🖥️ Live Demo
+
+> **Try it now:** [legal-lens-hks.vercel.app](https://legal-lens-hks.vercel.app)
+
+Click **"Try with Demo Agreement"** to instantly analyze a realistic Jaipur commercial rental agreement — no upload needed.
+
+**Sample output on demo doc:**
+- 10 clauses detected (6 High · 2 Medium · 2 Info)
+- Risk Score: **100 / 100 — HIGH RISK**
+- 8 sentences highlighted in full-text view
+
+---
+
+## 🏗️ Architecture
+
+LegalLens is a **build-free single-page application**. No npm, no Webpack, no bundler — just open `index.html`.
+
 ```
-index.html               app shell + CDN imports
-favicon.svg              navy/gold scale icon
-css/style.css            design-system variables, cards, animations
+index.html               ← App shell + CDN script imports
+favicon.svg              ← Navy/gold scale icon
+css/
+└── style.css            ← Design system variables, cards, animations
 src/
-├── App.jsx              root state machine (landing|loading|analysis)
-├── data/sampleDoc.js    demo rental agreement
+├── App.jsx              ← Root state machine (landing | loading | analysis)
+├── data/
+│   └── sampleDoc.js     ← Demo Jaipur rental agreement text
 ├── utils/
-│   ├── clauseEngine.js  CLAUSE_RULES + detectClauses + calculateRiskScore
-│   ├── summarizer.js    generateSummary (parties/date/amount/jurisdiction regex)
-│   ├── pdfParser.js     parseFile → PDF/DOCX/TXT
-│   └── exportReport.js  jsPDF report generator
+│   ├── clauseEngine.js  ← CLAUSE_RULES + detectClauses() + calculateRiskScore()
+│   ├── summarizer.js    ← generateSummary() — regex extraction for parties, date, amount, jurisdiction
+│   ├── pdfParser.js     ← parseFile() — dispatches to PDF / DOCX / TXT handler
+│   └── exportReport.js  ← jsPDF branded report generator
 └── components/
-    ├── Icons.jsx        inline lucide-style SVG icons
-    ├── Header.jsx       Sidebar.jsx       RiskGauge.jsx     RiskDonut.jsx
-    ├── LandingScreen.jsx UploadZone.jsx   LoadingOverlay.jsx
-    ├── AnalysisScreen.jsx ClauseList.jsx  ClauseCard.jsx
-    ├── SummaryPanel.jsx  FullTextPanel.jsx
+    ├── Icons.jsx         ← Inline lucide-style SVG icons
+    ├── Header.jsx        ← Top navigation bar
+    ├── Sidebar.jsx       ← Document info, quick stats, re-analyze
+    ├── RiskGauge.jsx     ← Animated SVG semicircle gauge
+    ├── RiskDonut.jsx     ← Animated SVG donut chart
+    ├── LandingScreen.jsx ← Hero section, feature pills, SME stats
+    ├── UploadZone.jsx    ← Drag & drop upload area
+    ├── LoadingOverlay.jsx← 2.5s animated loading with cycling status messages
+    ├── AnalysisScreen.jsx← Tabbed analysis layout
+    ├── ClauseList.jsx    ← Clause cards container
+    ├── ClauseCard.jsx    ← Individual expandable clause with EN/HI content
+    ├── SummaryPanel.jsx  ← English ⇄ हिंदी summary toggle
+    └── FullTextPanel.jsx ← Monospace full-text with sentence highlights
 ```
 
-## 📊 Data Models & Storage
+### Technology Choices
 
-- **No persistent storage** — analysis is ephemeral and in-memory (privacy-friendly: documents never leave the browser).
-- `DetectedClause`: `{ ruleId, name, severity, matchedKeyword, snippetText, explanation, recommendation, hindiExplanation, hindiRecommendation }`
-- `Summary`: `{ englishSummary, hindiSummary, parties[], date, amount, jurisdiction, highRiskCount, mediumRiskCount, infoCount, topRisks[] }`
-- `RiskInfo`: `{ score, riskLevel, label, color, labelBg, counts:{high,medium,info} }`
+| Spec'd Library | Deployed As | Reason |
+|---|---|---|
+| Vite + npm | Build-free CDN | Static deployment, zero toolchain |
+| Framer Motion | CSS keyframe animations | No bundler dependency |
+| Recharts | Hand-rolled SVG donut | Zero external JS for charts |
+| lucide-react | Inline SVG paths | No import resolution needed |
+| React 18 (ESM) | React 18 UMD + Babel Standalone | JSX without a build step |
 
-## 🧪 Verified (headless browser)
+### CDN Dependencies
 
-- Demo flow renders analysis screen ✅ · 10 clauses detected on sample doc (6 high, 2 medium, 2 info → score 100, HIGH RISK) ✅ · gauge & donut render ✅ · card expand works ✅ · Hindi/English toggle works ✅ · full-text highlights (8 marked sentences) ✅ · no console errors ✅
+```html
+React 18 UMD          cdn.jsdelivr.net
+Babel Standalone       cdn.jsdelivr.net
+Tailwind CSS (CDN)    cdn.tailwindcss.com
+pdf.js 3.11.174       cdnjs.cloudflare.com
+mammoth 1.6.0         cdn.jsdelivr.net
+jsPDF 2.5.1           cdn.jsdelivr.net
+Inter + Playfair Display  fonts.googleapis.com
+```
 
-## 🔮 Features Not Yet Implemented / Next Steps
+---
 
-1. **OCR for scanned PDFs** (tesseract.js) — current parser only reads text-layer PDFs
-2. **More clause rules** — e.g., security deposit, lock-in period, GST liability, force majeure
-3. **Regex-based rules with fuzzy matching** for paraphrased clauses
-4. **Clause comparison** against a "fair standard" template library
-5. **Save analysis history** using the RESTful Table API
-6. **More Indian languages** — Tamil, Telugu, Bengali, Marathi summaries
-7. **Share report via link** (URL-encoded analysis state)
+## 📐 Data Models
+
+All data is **in-memory and ephemeral** — no localStorage, no cookies, no server. Documents are processed entirely in the browser.
+
+```js
+// Detected clause from the engine
+DetectedClause {
+  ruleId: string,
+  name: string,
+  severity: "high" | "medium" | "info",
+  matchedKeyword: string,
+  snippetText: string,           // ±150 chars around match
+  explanation: string,           // English: what this means
+  recommendation: string,        // English: what to do
+  hindiExplanation: string,      // हिंदी explanation
+  hindiRecommendation: string,   // हिंदी recommendation
+}
+
+// Document summary
+Summary {
+  englishSummary: string,
+  hindiSummary: string,
+  parties: string[],
+  date: string,
+  amount: string,
+  jurisdiction: string,
+  highRiskCount: number,
+  mediumRiskCount: number,
+  infoCount: number,
+  topRisks: string[],
+}
+
+// Risk scoring result
+RiskInfo {
+  score: number,                 // 0–100
+  riskLevel: "LOW" | "MEDIUM" | "HIGH",
+  label: string,
+  color: string,
+  labelBg: string,
+  counts: { high, medium, info }
+}
+```
+
+---
+
+## 🚀 Getting Started
+
+### Option 1 — Run Locally (Zero Setup)
+
+```bash
+git clone https://github.com/artist-hks/LegalLens.git
+cd LegalLens
+# Open in browser — no npm install, no build step needed
+open index.html
+```
+
+> ⚠️ Some browsers block local `file://` cross-origin script loads. If you see errors, use a local server (see Option 2).
+
+### Option 2 — Local Dev Server
+
+```bash
+# Using Python (built-in)
+python -m http.server 8080
+# Then open http://localhost:8080
+
+# Or using Node.js
+npx serve .
+# Then open http://localhost:3000
+```
+
+### Option 3 — Deploy to Vercel / Netlify
+
+This is a static site — just connect your GitHub repo. No build command or output directory configuration is needed.
+
+```
+Build Command:    (leave empty)
+Output Directory: (leave empty or set to /)
+```
+
+---
+
+## 🗺️ Roadmap
+
+| # | Feature | Status |
+|---|---|---|
+| 1 | OCR for scanned PDFs (tesseract.js) | 🔜 Planned |
+| 2 | Expanded clause rule library (security deposit, lock-in, GST liability, force majeure) | 🔜 Planned |
+| 3 | Regex + fuzzy matching for paraphrased clauses | 🔜 Planned |
+| 4 | Clause comparison against a "fair standard" template library | 💡 Idea |
+| 5 | Saved analysis history | 💡 Idea |
+| 6 | Additional Indian language summaries (Tamil, Telugu, Bengali, Marathi) | 💡 Idea |
+| 7 | Shareable report links (URL-encoded analysis state) | 💡 Idea |
+
+---
 
 ## ⚠️ Disclaimer
 
-LegalLens is an AI tool for awareness only. Always consult a qualified lawyer before signing. **Not legal advice.**
+**LegalLens is an informational tool only.** Risk detection is keyword-based and does not constitute legal advice. Analysis results are for awareness purposes and should not be relied upon as a substitute for professional legal consultation.
 
-## 🌐 Deployment
+**Always consult a qualified lawyer before signing any contract.**
 
-To publish the site, use the **Publish tab** — it deploys with one click and gives you the live URL.
+---
+
+## 📄 License
+
+Distributed under the [MIT License](LICENSE). You are free to use, modify, and distribute this project with attribution.
+
+---
+
+## 🙌 Contributing
+
+Contributions are welcome! To add clause rules, improve Hindi translations, or expand language support:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-clause-rules`
+3. Edit `src/utils/clauseEngine.js` to add rules or `src/utils/summarizer.js` for extraction improvements
+4. Open a Pull Request with a clear description
+
+---
+
+<div align="center">
+
+Made with ❤️ for India's SMEs &nbsp;|&nbsp; Built in Jaipur, Rajasthan
+
+[🌐 Live App](https://legal-lens-hks.vercel.app) &nbsp;·&nbsp; [🐛 Report a Bug](https://github.com/artist-hks/LegalLens/issues) &nbsp;·&nbsp; [💡 Request a Feature](https://github.com/artist-hks/LegalLens/issues)
+
+</div>
