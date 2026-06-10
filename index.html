@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LegalLens — AI Legal Document Analyzer for Indian SMEs</title>
+  <meta name="description" content="AI-powered risk detection for Indian legal documents. Free, instant, no signup. Hindi & English summaries for SMEs." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: { DEFAULT: '#0F2342', mid: '#1E3A5F', light: '#2D5282' },
+            risk: { high: '#DC2626', medium: '#D97706', info: '#059669' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- React 18 UMD -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <!-- Babel standalone for JSX -->
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.4/babel.min.js"></script>
+
+  <!-- PDF.js v3.11.174 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- mammoth (DOCX) -->
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- App source (order matters: data → utils → components → app) -->
+  <script type="text/babel" data-presets="react" src="src/data/sampleDoc.js"></script>
+  <script type="text/babel" data-presets="react" src="src/utils/clauseEngine.js"></script>
+  <script type="text/babel" data-presets="react" src="src/utils/summarizer.js"></script>
+  <script type="text/babel" data-presets="react" src="src/utils/pdfParser.js"></script>
+  <script type="text/babel" data-presets="react" src="src/utils/exportReport.js"></script>
+  <script type="text/babel" data-presets="react" src="src/components/Icons.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/Header.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/UploadZone.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/LandingScreen.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/LoadingOverlay.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/RiskGauge.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/RiskDonut.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/Sidebar.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/ClauseCard.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/ClauseList.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/SummaryPanel.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/FullTextPanel.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/components/AnalysisScreen.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src/App.jsx"></script>
+</body>
+</html>

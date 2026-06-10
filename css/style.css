@@ -1,0 +1,197 @@
+/* ═══════════════════════════════════════════
+   LegalLens — Global Design System
+   ═══════════════════════════════════════════ */
+
+:root {
+  --navy:        #0F2342;
+  --navy-mid:    #1E3A5F;
+  --navy-light:  #2D5282;
+  --high-risk:   #DC2626;
+  --high-bg:     #FEF2F2;
+  --med-risk:    #D97706;
+  --med-bg:      #FFFBEB;
+  --safe:        #059669;
+  --safe-bg:     #ECFDF5;
+  --bg:          #F1F5F9;
+  --surface:     #FFFFFF;
+  --border:      #E2E8F0;
+  --text-primary:#0F172A;
+  --text-muted:  #64748B;
+  --gold:        #F59E0B;
+}
+
+* {
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display { font-family: 'Playfair Display', serif; }
+
+/* ── Scrollbar ─────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #F1F5F9; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+/* ── Cards ─────────────────────────────── */
+.ll-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Legal-paper blueprint texture (CSS only) ── */
+.legal-texture {
+  background-color: #F1F5F9;
+  background-image:
+    linear-gradient(rgba(15, 35, 66, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 35, 66, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ── Entry animations (Framer-Motion equivalents) ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.anim-fade-up { animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-fade-in { animation: fadeIn 0.4s ease both; }
+.anim-scale-in { animation: scaleIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* stagger delays (staggerChildren: 0.08 equivalent) */
+.stagger > * { animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.stagger > *:nth-child(1)  { animation-delay: 0.00s; }
+.stagger > *:nth-child(2)  { animation-delay: 0.08s; }
+.stagger > *:nth-child(3)  { animation-delay: 0.16s; }
+.stagger > *:nth-child(4)  { animation-delay: 0.24s; }
+.stagger > *:nth-child(5)  { animation-delay: 0.32s; }
+.stagger > *:nth-child(6)  { animation-delay: 0.40s; }
+.stagger > *:nth-child(7)  { animation-delay: 0.48s; }
+.stagger > *:nth-child(8)  { animation-delay: 0.56s; }
+.stagger > *:nth-child(9)  { animation-delay: 0.64s; }
+.stagger > *:nth-child(10) { animation-delay: 0.72s; }
+.stagger > *:nth-child(11) { animation-delay: 0.80s; }
+.stagger > *:nth-child(12) { animation-delay: 0.88s; }
+
+/* ── Loading overlay ───────────────────── */
+@keyframes spinScale {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spin-icon { animation: spinScale 1.6s linear infinite; }
+
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+.progress-fill { animation: progressFill 2.5s ease-out forwards; }
+
+@keyframes msgFade {
+  0%   { opacity: 0; transform: translateY(8px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  85%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+.msg-fade { animation: msgFade 0.6s ease both; }
+
+/* ── Gauge needle ──────────────────────── */
+.gauge-needle {
+  transform-origin: 100px 100px;
+  transition: transform 1.2s cubic-bezier(0.34, 1.3, 0.5, 1);
+}
+.gauge-arc {
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Donut segments ────────────────────── */
+.donut-seg {
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+/* ── Clause card expand/collapse ───────── */
+.expandable {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+/* ── Highlights in full text ───────────── */
+mark.hl-high   { background: #FEF08A; color: inherit; padding: 1px 2px; border-radius: 3px; }
+mark.hl-medium { background: #FED7AA; color: inherit; padding: 1px 2px; border-radius: 3px; }
+
+/* ── Buttons ───────────────────────────── */
+.btn-navy {
+  background: var(--navy);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn-navy:hover { background: var(--navy-light); box-shadow: 0 4px 12px rgba(15,35,66,0.25); transform: translateY(-1px); }
+.btn-navy:active { transform: translateY(0); }
+
+.btn-outline {
+  border: 1px solid var(--border);
+  color: var(--navy);
+  font-weight: 600;
+  border-radius: 8px;
+  background: #fff;
+}
+.btn-outline:hover { border-color: var(--navy); background: #F8FAFF; }
+
+/* ── Upload zone ───────────────────────── */
+.upload-zone {
+  border: 2px dashed #CBD5E1;
+  border-radius: 16px;
+  transition: border-color 0.25s, background-color 0.25s, transform 0.25s;
+}
+.upload-zone:hover { border-color: var(--navy); background: #F8FAFF; }
+.upload-zone.dragover {
+  border-style: solid;
+  border-color: var(--navy);
+  background: #EFF6FF;
+  transform: scale(1.01);
+}
+
+/* ── Tabs ──────────────────────────────── */
+.tab-btn {
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); }
+.tab-btn:hover:not(.active) { color: var(--navy-mid); }
+
+/* ── Mono snippet ──────────────────────── */
+.mono-snippet {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* responsive helper */
+@media (max-width: 767px) {
+  .analysis-grid { display: block !important; }
+  .analysis-sidebar { margin-bottom: 1.25rem; }
+}
