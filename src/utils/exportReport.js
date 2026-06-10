@@ -73,10 +73,11 @@ window.exportPDFReport = function exportPDFReport({ docName, score, riskInfo, cl
   doc.setTextColor(...scoreColor);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(30);
+  const scoreWidth = doc.getTextWidth(`${score}`);
   doc.text(`${score}`, margin + 10, y + 17);
   doc.setFontSize(11);
   doc.setTextColor(...MUTED);
-  doc.text("/ 100", margin + 10 + doc.getTextWidth(`${score}`) * 0.92 + 6, y + 17);
+  doc.text("/ 100", margin + 10 + scoreWidth + 4, y + 17);
   doc.setTextColor(...scoreColor);
   doc.setFontSize(13);
   doc.text(riskInfo.label, margin + 10, y + 27);
